@@ -8,4 +8,15 @@
 		<el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
 	</application>
 
+	<application>
+		<locale-config>
+			<default-locale>pt_BR</default-locale>
+			<supported-locale>en_US</supported-locale>
+		</locale-config>
+		<resource-bundle>
+			<base-name>widgets_pt_BR</base-name>
+			<var>wds</var>
+		</resource-bundle>
+	</application>
+
 </faces-config>

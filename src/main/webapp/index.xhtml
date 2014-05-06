@@ -15,59 +15,60 @@
 
 		<p:panelGrid id="grid" columns="6">
 			<f:facet name="header">
-		        Add Person
+		        #{wds['addPerson']}
 		    </f:facet>
 
-			<p:outputLabel for="name" value="Name:" />
-			<p:inputText id="name" label="Name" required="true"
+			<p:outputLabel for="name" value="#{wds['name']}" />
+			<p:inputText id="name" label="#{wds['']}" required="true"
 				value="#{helloBean.person.name}" />
 
-			<p:outputLabel for="age" value="Age:" />
-			<p:inputText id="age" label="Age" required="true"
+			<p:outputLabel for="age" value="#{wds['age']}" />
+			<p:inputText id="age" label="#{wds['age']}" required="true"
 				value="#{helloBean.person.age}" />
 
-			<p:outputLabel for="address" value="Address:" />
-			<p:inputText id="address" label="Address" required="true"
+			<p:outputLabel for="address" value="#{wds['address']}" />
+			<p:inputText id="address" label="#{wds['address']}" required="true"
 				value="#{helloBean.person.address.description}" />
 
-			<p:outputLabel for="city" value="City:" />
-			<p:inputText id="city" label="City" required="true"
+			<p:outputLabel for="city" value="#{wds['city']}" />
+			<p:inputText id="city" label="#{wds['city']}" required="true"
 				value="#{helloBean.person.address.city}" />
 
-			<p:outputLabel for="state" value="State:" />
-			<p:inputText id="state" label="State" required="true"
+			<p:outputLabel for="state" value="#{wds['state']}" />
+			<p:inputText id="state" label="#{wds['state']}" required="true"
 				value="#{helloBean.person.address.state}" />
 
 			<f:facet name="footer">
 				<p:commandButton actionListener="#{helloBean.insertPerson}"
-					value="Insert" update="grid msg tablePerson" validateClient="true"
-					partialSubmit="true" icon="ui-icon-plusthick" />
+					value="#{wds['button.insert']}" update="grid msg tablePerson"
+					validateClient="true" partialSubmit="true" icon="ui-icon-plusthick" />
 				<p:commandButton actionListener="#{helloBean.deletePerson}"
 					update="tablePerson" process="@this" immediate="true"
-					value="Remove All" icon="ui-icon-trash" />
+					value="#{wds['button.removeAll']}" icon="ui-icon-trash" />
 			</f:facet>
 		</p:panelGrid>
 
 		<p:dataTable id="tablePerson" value="#{helloBean.persons}" var="item">
-			<p:column headerText="Options" style="width: 7%">
+			<p:column headerText="#{wds['table.columnOptions']}"
+				style="width: 7%">
 				<p:commandButton icon="ui-icon-trash" process="@this"
 					action="#{helloBean.delete(item)}" update="tablePerson" />
 				<p:commandButton icon="ui-icon-pencil" process="@this"
 					action="#{helloBean.update(item)}" update="tablePerson :form:grid" />
 			</p:column>
-			<p:column headerText="Name">
+			<p:column headerText="#{wds['name']}">
 				#{item.name}
 			</p:column>
-			<p:column headerText="Age">
+			<p:column headerText="#{wds['age']}">
 				#{item.age}
 			</p:column>
-			<p:column headerText="Address">
+			<p:column headerText="#{wds['address']}">
 				#{item.address.description}
 			</p:column>
-			<p:column headerText="City">
+			<p:column headerText="#{wds['city']}">
 				#{item.address.city}
 			</p:column>
-			<p:column headerText="State">
+			<p:column headerText="#{wds['state']}">
 				#{item.address.state}
 			</p:column>
 		</p:dataTable>
