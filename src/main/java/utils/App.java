@@ -1,5 +1,6 @@
 package utils;
 
+import model.Address;
 import model.Person;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -12,21 +13,35 @@ public class App {
 	public static void main(String[] args) {
 
 		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
-				"spring-application-context.xml");
-		PersonService pr = context.getBean(PersonService.class);
+				"applicationContext.xml");
+		PersonService personService = context.getBean(PersonService.class);
 		
 		Person p = new Person();
 		p.setName("Felipe");
-		Person p2 = new Person();
-		p2.setName("Alfaville");
+		p.setAge(24);
 
-		pr.addPerson(p);
-		pr.addPerson(p2);
+		Address address = new Address();
+		address.setDescription("Todos os Santos");
+		address.setCity("Teresina");
+		address.setState("Piauí");
 		
-		for (Person item : pr.findAllPerson()) {
-			System.out.println( item.getName() );
+		p.setAddress(address);
+
+		personService.addPerson(p);
+	
+		for (Person item : personService.findAllPerson()) {
+			System.out.println("{\n");
+			System.out.println(" _id :" + item.getId() + ", \n");
+			System.out.println(" name :" + item.getName() + ", \n");
+			System.out.println(" age :" + item.getAge() + ", \n");
+			System.out.println(" address: { \n");
+			System.out.println("    address :" + item.getAddress().getDescription() + ", \n");
+			System.out.println("    city :" + item.getAddress().getCity() + ", \n");
+			System.out.println("    state :" + item.getAddress().getState() + ", \n");
+			System.out.println("  } \n");
+			System.out.println("}");
 		}
-		pr.dropPersonrCollection();
+		personService.dropPersonrCollection();
 	}
 
 }

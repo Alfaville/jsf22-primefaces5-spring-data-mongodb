@@ -13,4 +13,8 @@ public interface PersonService {
 
 	public void dropPersonrCollection();
 	
+	public void deletePerson(Person person);
+	
+	public void updatePerson(Person person);
+	
 }

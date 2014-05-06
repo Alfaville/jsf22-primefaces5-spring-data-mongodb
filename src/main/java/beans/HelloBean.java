@@ -8,6 +8,7 @@ import javax.faces.event.ActionEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import model.Address;
 import model.Person;
 import service.PersonService;
 
@@ -16,26 +17,44 @@ import service.PersonService;
 public class HelloBean {
 
 	@Inject
-	private PersonService dao;
+	private PersonService personService;
 
 	private Person person;
+	
+	private List<Person> persons;
 
 	@PostConstruct
 	public void init() {
 		person = new Person();
+		person.setAddress(new Address());
+		persons = personService.findAllPerson();
 	}
 
 	public void insertPerson(ActionEvent event) {
-		dao.addPerson(person);
+		personService.addPerson(person);
 		init();
 	}
 
 	public void deletePerson(ActionEvent event) {
-		dao.dropPersonrCollection();
+		personService.dropPersonrCollection();
+		init();
+	}
+
+	public String delete(Person item) {
+		personService.deletePerson(item);
+		persons = personService.findAllPerson();
+		return null;
+	}
+
+	public String update(Person item) {
+		persons.remove(item);
+		personService.deletePerson(item);
+		person = item;
+		return null;
 	}
 
 	public List<Person> getHello() {
-		return dao.findAllPerson();
+		return persons;
 	}
 
 	public Person getPerson() {
@@ -45,9 +64,13 @@ public class HelloBean {
 	public void setPerson(Person person) {
 		this.person = person;
 	}
-	
-	public String getTeste() {
-		return "oi";
+
+	public List<Person> getPersons() {
+		return persons;
+	}
+
+	public void setPersons(List<Person> persons) {
+		this.persons = persons;
 	}
 
 }

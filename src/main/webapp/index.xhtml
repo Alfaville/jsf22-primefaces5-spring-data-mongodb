@@ -5,31 +5,73 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 
-	<head jsf:id="head">
-		<title>JSF 2.2</title>
-	</head>
+<head jsf:id="head">
+<title>JSF 2.2</title>
+</head>
 
-	<body jsf:id="body">
-		<form jsf:id="form">
-			<p:messages id="msg" />
-			<p:outputLabel for="input" value="Name: " />
-			<p:inputText id="input" value="#{helloBean.person.name}"
-				required="true">
-				<p:clientValidator />
-			</p:inputText>
-	
-			<p:commandButton actionListener="#{helloBean.insertPerson}"
-				value="Inserir" update="@form" validateClient="true" />
-			<p:commandButton actionListener="#{helloBean.deletePerson}"
-				update="tablePerson" process="@this" immediate="true"
-				value="Apagar Todos" />
-	
-			<p:dataTable id="tablePerson" value="#{helloBean.hello}" var="item">
-				<p:column headerText="Name Person:">
-					#{item.name}
-				</p:column>
-			</p:dataTable>
-		</form>
-	</body>
-	
+<body jsf:id="body">
+	<form jsf:id="form">
+		<p:messages id="msg" />
+
+		<p:panelGrid id="grid" columns="6">
+			<f:facet name="header">
+		        Add Person
+		    </f:facet>
+
+			<p:outputLabel for="name" value="Name:" />
+			<p:inputText id="name" label="Name" required="true"
+				value="#{helloBean.person.name}" />
+
+			<p:outputLabel for="age" value="Age:" />
+			<p:inputText id="age" label="Age" required="true"
+				value="#{helloBean.person.age}" />
+
+			<p:outputLabel for="address" value="Address:" />
+			<p:inputText id="address" label="Address" required="true"
+				value="#{helloBean.person.address.description}" />
+
+			<p:outputLabel for="city" value="City:" />
+			<p:inputText id="city" label="City" required="true"
+				value="#{helloBean.person.address.city}" />
+
+			<p:outputLabel for="state" value="State:" />
+			<p:inputText id="state" label="State" required="true"
+				value="#{helloBean.person.address.state}" />
+
+			<f:facet name="footer">
+				<p:commandButton actionListener="#{helloBean.insertPerson}"
+					value="Insert" update="grid msg tablePerson" validateClient="true"
+					partialSubmit="true" icon="ui-icon-plusthick" />
+				<p:commandButton actionListener="#{helloBean.deletePerson}"
+					update="tablePerson" process="@this" immediate="true"
+					value="Remove All" icon="ui-icon-trash" />
+			</f:facet>
+		</p:panelGrid>
+
+		<p:dataTable id="tablePerson" value="#{helloBean.persons}" var="item">
+			<p:column headerText="Options" style="width: 7%">
+				<p:commandButton icon="ui-icon-trash" process="@this"
+					action="#{helloBean.delete(item)}" update="tablePerson" />
+				<p:commandButton icon="ui-icon-pencil" process="@this"
+					action="#{helloBean.update(item)}" update="tablePerson :form:grid" />
+			</p:column>
+			<p:column headerText="Name">
+				#{item.name}
+			</p:column>
+			<p:column headerText="Age">
+				#{item.age}
+			</p:column>
+			<p:column headerText="Address">
+				#{item.address.description}
+			</p:column>
+			<p:column headerText="City">
+				#{item.address.city}
+			</p:column>
+			<p:column headerText="State">
+				#{item.address.state}
+			</p:column>
+		</p:dataTable>
+	</form>
+</body>
+
 </html>

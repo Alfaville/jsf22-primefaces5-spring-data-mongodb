@@ -15,18 +15,28 @@ import service.PersonService;
 public class PersonServiceImpl implements PersonService {
 
 	@Inject
-	private PersonRepository dao;
+	private PersonRepository personRepository;
 
-	public void addPerson(Person person) {
-		dao.addPerson(person);
+	public void addPerson(Person person) {		
+		personRepository.addPerson(person);
 	}
 
 	public List<Person> findAllPerson() {
-		return dao.findAll();
+		return personRepository.findAll();
 	}
 
 	public void dropPersonrCollection() {
-		dao.deleteAll();
+		personRepository.deleteAll();
+	}
+
+	@Override
+	public void deletePerson(Person person) {
+		personRepository.delete(person);
+	}
+
+	@Override
+	public void updatePerson(Person person) {
+		personRepository.save(person);
 	}
 
 }
