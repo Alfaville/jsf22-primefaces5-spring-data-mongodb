@@ -11,6 +11,8 @@ public interface PersonService {
 
 	public List<Person> findAllPerson();
 
+	public List<Person> findPersonByName(String name);
+	
 	public void dropPersonrCollection();
 	
 	public void deletePerson(Person person);

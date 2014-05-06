@@ -12,6 +12,8 @@ public interface PersonRepository extends MongoRepository<Person, String> {
 
 	public List<Person> listAllPerson();
 
+	public List<Person> findPersonByName(String name);
+	
 	public void deletePerson(Person person);
 
 	public Person updatePerson(Person person);

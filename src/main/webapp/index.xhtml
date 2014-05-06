@@ -40,7 +40,7 @@
 
 			<f:facet name="footer">
 				<p:commandButton actionListener="#{helloBean.insertPerson}"
-					value="#{wds['button.insert']}" update="grid msg tablePerson"
+					value="#{wds['button.insert']}" update="@form"
 					validateClient="true" partialSubmit="true" icon="ui-icon-plusthick" />
 				<p:commandButton actionListener="#{helloBean.deletePerson}"
 					update="tablePerson" process="@this" immediate="true"
@@ -72,6 +72,22 @@
 				#{item.address.state}
 			</p:column>
 		</p:dataTable>
+
+		<p:panelGrid id="gridPersonAutocomplete" columns="2">
+			<f:facet name="header">
+		        #{wds['persons']}
+		    </f:facet>
+
+			<p:outputLabel for="personsAutocomplete" value="#{wds['persons']}" />
+			<p:autoComplete id="personsAutocomplete" minQueryLength="3"
+				forceSelection="true" dropdown="true" scrollHeight="200"
+				value="#{helloBean.personAutocomplete}" label="#{wds['persons']}"
+				var="item" itemLabel="#{item.name}" itemValue="#{item}"
+				completeMethod="#{helloBean.autocomplete}" cache="true"
+				maxlength="10" emptyMessage="#{wds['empty']}"
+				converter="autocompleteConverter" />
+		</p:panelGrid>
+
 	</form>
 </body>
 

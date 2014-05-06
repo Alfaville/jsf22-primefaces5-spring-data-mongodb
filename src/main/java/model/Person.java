@@ -1,6 +1,7 @@
 package model;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
@@ -14,6 +15,15 @@ public class Person {
 	private Integer age;
 
 	private Address address;
+	
+	@DBRef
+	private Person person;
+	
+	public Person(){}
+	
+	public Person(String name){
+		this.name = name;
+	}
 	
 	public String getId() {
 		return id;
@@ -45,6 +55,14 @@ public class Person {
 
 	public void setAddress(Address address) {
 		this.address = address;
+	}
+
+	public Person getPerson() {
+		return person;
+	}
+
+	public void setPerson(Person person) {
+		this.person = person;
 	}
 	
 }

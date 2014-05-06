@@ -20,7 +20,9 @@ public class HelloBean {
 	private PersonService personService;
 
 	private Person person;
-	
+
+	private Person personAutocomplete;
+
 	private List<Person> persons;
 
 	@PostConstruct
@@ -28,9 +30,11 @@ public class HelloBean {
 		person = new Person();
 		person.setAddress(new Address());
 		persons = personService.findAllPerson();
+		personAutocomplete = null;
 	}
 
 	public void insertPerson(ActionEvent event) {
+		person.setPerson(personAutocomplete);
 		personService.addPerson(person);
 		init();
 	}
@@ -53,6 +57,10 @@ public class HelloBean {
 		return null;
 	}
 
+	public List<Person> autocomplete(String value) {
+		return personService.findPersonByName(value);
+	}
+
 	public List<Person> getHello() {
 		return persons;
 	}
@@ -71,6 +79,14 @@ public class HelloBean {
 
 	public void setPersons(List<Person> persons) {
 		this.persons = persons;
+	}
+
+	public Person getPersonAutocomplete() {
+		return personAutocomplete;
+	}
+
+	public void setPersonAutocomplete(Person personAutocomplete) {
+		this.personAutocomplete = personAutocomplete;
 	}
 
 }
