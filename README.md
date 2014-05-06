@@ -4,4 +4,3 @@ Projeto configurado com as seguintes tecnologias:
 - Primefaces 5
 - Spring Data MongoDB
 - CDI
-
